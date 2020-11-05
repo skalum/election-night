@@ -68,6 +68,7 @@ cron.schedule('*/10 * * * * *', async function() {
       console.log(`${votes.toLocaleString('en')} new votes | ${leaderName}: ${(1-trailerPartition).toLocaleString("en", { style: "percent", maximumSignificantDigits: 4 } )}, ${trailerName}: ${trailerPartition.toLocaleString("en", {style: "percent", maximumSignificantDigits: 4 })}`);
       console.log(`${leaderName} now leads ${trailerName} by ${voteDifference.toLocaleString('en')} votes.`);
       console.log(`There are estimated to be ${votesRemaining.toLocaleString('en')} votes remaining (${(precinctsReporting / prectinctsTotal).toLocaleString("en", { style: "percent", maximumSignificantDigits: 3 })} precincts reporting).`);
+      console.log(`${trailerName} needs ${hurdle.toLocaleString("en", { style: "percent", maximumSignificantDigits: 4 })} of remaining to overtake.\n\n`);
 
       states[state].voteCount = votes;
       states[state].lastVoteDifference = voteDifference;

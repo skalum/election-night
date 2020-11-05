@@ -10,35 +10,37 @@ const states = {
   "Arizona": {
     "index": 3,
     "voteCount": 0,
-    "lastVoteDifference": 0,
+    "lastVoteDifference": 0
   },
   "Georgia": {
     "index": 10,
     "voteCount": 0,
-    "lastVoteDifference": 0,
+    "lastVoteDifference": 0
   },
   "North Carolina": {
     "index": 27,
     "voteCount": 0,
-    "lastVoteDifference": 0,
+    "lastVoteDifference": 0
   },
   "Nevada": {
     "index": 33,
     "voteCount": 0,
-    "lastVoteDifference": 0,
+    "lastVoteDifference": 0
   },
   "Pennsylvania": {
     "index": 38,
     "voteCount": 0,
-    "lastVoteDifference": 0,
-  },
+    "lastVoteDifference": 0
+  }
 }
 
 cron.schedule(config.get('run.cronSchedule'), async function() {
   const {
     data: {
-      data: results,
-    },
+      data: {
+        races
+      }
+    }
   } = await axios.get('https://static01.nyt.com/elections-assets/2020/data/api/2020-11-03/votes-remaining-page/national/president.json');
 
   let newInformation = false;
@@ -47,13 +49,14 @@ cron.schedule(config.get('run.cronSchedule'), async function() {
     const {
       candidates: [
         { last_name: leaderName, votes: leaderVotes },
-        { last_name: trailerName, votes: trailerVotes },
+        { last_name: trailerName, votes: trailerVotes }
       ],
       votes,
       tot_exp_vote: expectedVotes,
       precincts_reporting: precinctsReporting,
       precincts_total: prectinctsTotal,
-    } = results.races[states[state].index];
+      last_updated: lastUpdated
+    } = races[states[state].index];
 
     const newVotes = votes - states[state].voteCount;
 
@@ -65,7 +68,7 @@ cron.schedule(config.get('run.cronSchedule'), async function() {
       const hurdle = ((votesRemaining + voteDifference) / 2) / votesRemaining;
       const trailerPartition = ((newVotes + (states[state].lastVoteDifference - voteDifference)) / 2.) / newVotes;
 
-      console.log(`NEW VOTES IN ${state.toUpperCase()} (${new Date()})`);
+      console.log(`NEW VOTES IN ${state.toUpperCase()} (${lastUpdated})`);
       console.log(`${votes.toLocaleString('en')} new votes | ${leaderName}: ${(1-trailerPartition).toLocaleString("en", { style: "percent", maximumSignificantDigits: 4 } )}, ${trailerName}: ${trailerPartition.toLocaleString("en", {style: "percent", maximumSignificantDigits: 4 })}`);
       console.log(`${leaderName} now leads ${trailerName} by ${voteDifference.toLocaleString('en')} votes.`);
       console.log(`There are estimated to be ${votesRemaining.toLocaleString('en')} votes remaining (${(precinctsReporting / prectinctsTotal).toLocaleString("en", { style: "percent", maximumSignificantDigits: 3 })} precincts reporting).`);

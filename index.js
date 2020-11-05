@@ -79,7 +79,10 @@ cron.schedule(config.get('run.cronSchedule'), async function() {
       states[state].lastVoteDifference = voteDifference;
 
       beep(config.get('notification.numBeeps'));
-      hue.alert(leaderName == 'Biden' ? 43690 : 0, 4, 10);
+      if (config.get('notification.useHue')) {
+        isGoodForDems = (leaderName == config.get('notification.desiredWinnerName') && trailerPartition < .5) || (leaderName != config.get('notification.desiredWinnerName') && trailerPartition > .5)
+        hue.alert(isGoodForDems ? config.get('notification.desiredWinnerColor') : config.get('notification.desiredLoserColor'), 4, 10);
+      }
     }
   }
 });

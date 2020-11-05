@@ -4,7 +4,9 @@
   },
   "notification": {
     "numBeeps": 2,
-    "demColor": "",
-    "gopColor": ""
+    "useHue": true,
+    "desiredWinnerName": "Biden",
+    "desiredWinnerColor": 43690,
+    "desiredLoserColor": 0
   }
 }

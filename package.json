@@ -23,6 +23,7 @@
     "config": "^3.3.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "hue-colors": "^0.5.4",
     "js-yaml": "^3.14.0",
     "node-cron": "^2.0.3"
   }

@@ -7,6 +7,9 @@ Checks NYT election results endpoint every 10 seconds and notifies you of change
 2. `npm install`
 3. `npm start`
 
+## note
+When it first runs, it thinks all votes are "new." Subsequent alerts will only show diffs.
+
 ## hue
 If you have a local connection to your Hue Bridge, you can add IP address/username to the .env file (copy from .env.example). Group is the id for a group of lights you want to flash.
 

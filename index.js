@@ -64,7 +64,7 @@ cron.schedule('*/10 * * * * *', async function() {
       const hurdle = ((votesRemaining + voteDifference) / 2) / votesRemaining;
       const trailerPartition = ((newVotes + (states[state].lastVoteDifference - voteDifference)) / 2.) / newVotes;
 
-      console.log(`NEW VOTES IN ${state.toUpperCase()}`);
+      console.log(`NEW VOTES IN ${state.toUpperCase()} (${new Date()})`);
       console.log(`${votes.toLocaleString('en')} new votes | ${leaderName}: ${(1-trailerPartition).toLocaleString("en", { style: "percent", maximumSignificantDigits: 4 } )}, ${trailerName}: ${trailerPartition.toLocaleString("en", {style: "percent", maximumSignificantDigits: 4 })}`);
       console.log(`${leaderName} now leads ${trailerName} by ${voteDifference.toLocaleString('en')} votes.`);
       console.log(`There are estimated to be ${votesRemaining.toLocaleString('en')} votes remaining (${(precinctsReporting / prectinctsTotal).toLocaleString("en", { style: "percent", maximumSignificantDigits: 3 })} precincts reporting).`);

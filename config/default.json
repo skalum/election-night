@@ -4,7 +4,7 @@
   },
   "notification": {
     "numBeeps": 2,
-    "useHue": true,
+    "useHue": false,
     "desiredWinnerName": "Biden",
     "desiredWinnerColor": 43690,
     "desiredLoserColor": 0

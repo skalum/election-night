@@ -2,6 +2,7 @@ const axios = require('axios').default;
 const cron = require('node-cron');
 const express = require('express');
 const beep = require('beepbeep');
+const config = require('config');
 
 const app = express();
 
@@ -33,7 +34,7 @@ const states = {
   },
 }
 
-cron.schedule('*/10 * * * * *', async function() {
+cron.schedule(config.get('run.cronSchedule'), async function() {
   const {
     data: {
       data: results,
@@ -75,7 +76,7 @@ cron.schedule('*/10 * * * * *', async function() {
     }
   }
 
-  if (newInformation) beep(2);
+  if (newInformation) beep(config.get('notification.numBeeps'));
 });
 
 app.listen(3000);

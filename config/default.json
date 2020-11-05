@@ -1,0 +1,10 @@
+{
+  "run": {
+    "cronSchedule": "*/10 * * * * *"
+  },
+  "notification": {
+    "numBeeps": 2,
+    "demColor": "",
+    "gopColor": ""
+  }
+}

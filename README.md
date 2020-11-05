@@ -6,3 +6,6 @@ Checks NYT election results endpoint every 10 seconds and notifies you of change
 2. `cd election-night`
 2. `npm install`
 3. `npm start`
+
+## ht
+https://github.com/alex/nyt-2020-election-scraper

@@ -6,6 +6,7 @@ const express = require('express');
 const beep = require('beepbeep');
 const config = require('config');
 const Hue = require('./lib/Hue.js')
+const format = require('date-fns/format');
 
 const hue = new Hue(process.env.HUE_IP, process.env.HUE_USERNAME);
 
@@ -69,7 +70,7 @@ cron.schedule(config.get('run.cronSchedule'), async function() {
       const hurdle = ((votesRemaining + voteDifference) / 2) / votesRemaining;
       const trailerPartition = ((newVotes + (states[state].lastVoteDifference - voteDifference)) / 2.) / newVotes;
 
-      console.log(`NEW VOTES IN ${state.toUpperCase()} (${lastUpdated})`);
+      console.log(`NEW VOTES IN ${state.toUpperCase()} (${format(new Date(lastUpdated), 'MMM. d, h:mm bbbb')})`);
       console.log(`${newVotes.toLocaleString('en')} new votes | ${leaderName}: ${(1-trailerPartition).toLocaleString("en", { style: "percent", maximumSignificantDigits: 4 } )}, ${trailerName}: ${trailerPartition.toLocaleString("en", {style: "percent", maximumSignificantDigits: 4 })}`);
       console.log(`${leaderName} now leads ${trailerName} by ${voteDifference.toLocaleString('en')} votes.`);
       console.log(`There are estimated to be ${votesRemaining.toLocaleString('en')} votes remaining (${(precinctsReporting / prectinctsTotal).toLocaleString("en", { style: "percent", maximumSignificantDigits: 3 })} precincts reporting).`);
